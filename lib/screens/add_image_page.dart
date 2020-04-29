@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
@@ -6,27 +7,28 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:projectinsta/commonFiles/custom_offline_widget.dart';
 import 'package:projectinsta/commonFiles/transperent_loading.dart';
-import 'package:projectinsta/firebase/admobs.dart';
 import 'package:screenshot/screenshot.dart';
-//import 'package:firebase_admob/firebase_admob.dart';
 
 class AddImage extends StatelessWidget {
-  AddImage({@required this.backgroundImageURL, @required this.contestantNumber, @required this.instaID});
+  AddImage({@required this.backgroundImageURL, @required this.contestantNumber, @required this.instaID, @required this.contestCode});
   String backgroundImageURL;
   String contestantNumber;
   String instaID;
+  String contestCode;
 
   @override
   Widget build(BuildContext context) {
-    return F_AddImage(backgroundImageURL:backgroundImageURL, contestantNumber: contestantNumber, instaID: instaID,);
+    return F_AddImage(backgroundImageURL:backgroundImageURL, contestantNumber: contestantNumber, instaID: instaID, contestCode:contestCode);
   }
 }
 
 class F_AddImage extends StatefulWidget {
-  F_AddImage({@required this.backgroundImageURL, @required this.contestantNumber, @required this.instaID});
+  F_AddImage({@required this.backgroundImageURL, @required this.contestantNumber, @required this.instaID, @required this.contestCode});
   String backgroundImageURL;
   String contestantNumber;
   String instaID;
+  String contestCode;
+
 
 
   @override
@@ -44,10 +46,7 @@ class _F_AddImageState extends State<F_AddImage> {
   bool _progressBarActive = true;
 //  Ads adclass = Ads();
 
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
+
 
   pickImageFromGallery(ImageSource source) {
     setState(() {
@@ -89,6 +88,12 @@ class _F_AddImageState extends State<F_AddImage> {
           title: new Text("Circular progressbar demo"),
         ),
         body: _progressBarActive == true?const CircularProgressIndicator():new Container());
+  }
+
+
+  void initState() {
+
+    super.initState();
   }
 
 
@@ -154,22 +159,15 @@ class _F_AddImageState extends State<F_AddImage> {
                             width: 30,
                           ),
                           SizedBox(width: 3,),
-                          Text('@',
+                          Text("Insta @${widget.instaID}",
                             style: TextStyle(
                                 fontFamily: 'BalooBhaina2',
                                 fontWeight: FontWeight.bold,
-                                fontSize: 12
-                            ),),
-                          Text(widget.instaID,
-                            style: TextStyle(
-                                fontFamily: 'BalooBhaina2',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12
+                                fontSize: 17
                             ),),
                         ],
                       ),
                     ),
-
 
                     Positioned(
                       top: 20,
@@ -181,13 +179,13 @@ class _F_AddImageState extends State<F_AddImage> {
                             width: 30,
                           ),
                           SizedBox(width: 3,),
-                          Text('CNO:',
+                          Text('Contestant no :',
                             style: TextStyle(
                                 fontFamily: 'BalooBhaina2',
                                 fontWeight: FontWeight.bold,
-                                fontSize: 12
+                                fontSize: 17
                             ),),
-                          Text(widget.contestantNumber,
+                          Text('Contestant no :${widget.contestantNumber}',
                             style: TextStyle(
                                 fontFamily: 'BalooBhaina2',
                                 fontWeight: FontWeight.bold,

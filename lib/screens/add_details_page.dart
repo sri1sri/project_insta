@@ -29,7 +29,6 @@ class _F_AddDetailsState extends State<F_AddDetails> {
   String _contestCode;
   String _instaID;
 
-  final databaseReference = Firestore.instance;
 
   final FocusNode _contestCodeFocusNode = FocusNode();
   final FocusNode _instaIDFocusNode = FocusNode();
@@ -37,32 +36,37 @@ class _F_AddDetailsState extends State<F_AddDetails> {
   String backgroundImageURL;
   int contestantCount;
 
-  void getData(String contestCode) async{
-    var document = await databaseReference.collection('contests').document(_contestCode).snapshots();
-    document.listen((data) async{
+  Future<void> getData(String contestCode) async{
 
+    if (_validateAndSaveForm()) {
+      var document = await Firestore.instance.collection('contests').document(_contestCode).snapshots();
+      await document.listen((data) async{
+        if(data == null){
+          setState(() {
+            contetIDCheck = false;
+          });
+        }
 
-      if(data == null){
-        setState(() {
-          contetIDCheck = false;
-        });
-      }
+        if(data.data.length != 0) {
+          final ref = FirebaseStorage.instance.ref().child('backgrounds/${data['background_image_title']}');
+          var url = await ref.getDownloadURL();
 
-      if(data.data.length != 0) {
-        final ref = FirebaseStorage.instance.ref().child('backgrounds/${data['background_image_title']}');
-        var url = await ref.getDownloadURL();
+          setState(() {
+            backgroundImageURL = url;
+            contestantCount = data['contestant_count'] + 1;
+          });
+          GoToPage(context, AddImage(backgroundImageURL: backgroundImageURL, contestantNumber: contestantCount.toString(), instaID: _instaID,));
 
-        setState(() {
-          backgroundImageURL = url;
-          contestantCount = data['contestant_count'] + 1;
-        });
+        }
+      });
+    }
+  }
 
-        await databaseReference.collection("contests")
-            .document(contestCode)
-            .updateData({
-          'contestant_count': contestantCount,
-        });
-      }
+  Future<void> updateContestantNumber() async{
+    await Firestore.instance.collection("contests")
+        .document(_contestCode)
+        .updateData({
+      'contestant_count': contestantCount
     });
   }
 
@@ -80,14 +84,9 @@ class _F_AddDetailsState extends State<F_AddDetails> {
       isLoading = true;
     });
 
-    if (_validateAndSaveForm()) {
+    await getData(_contestCode);
+//    await updateContestantNumber();
 
-
-      await getData(_contestCode);
-
-      GoToPage(context, AddImage(backgroundImageURL: backgroundImageURL, contestantNumber: contestantCount.toString(), instaID: _instaID,));
-
-    }
     setState(() {
       isLoading = false;
     });
