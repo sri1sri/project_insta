@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "810842817987",
+    "firebase_url": "https://projectinsta-d1a6e.firebaseio.com",
+    "project_id": "projectinsta-d1a6e",
+    "storage_bucket": "projectinsta-d1a6e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:810842817987:android:8fcfd91e41efe2f36ca976",
+        "android_client_info": {
+          "package_name": "com.kondasri.projectinsta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "810842817987-9b714972qott39kdiuij83css1t1ni6i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYd6ZPsqfVDsDKu2gXKlYrWwcK-aqVrIs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "810842817987-9b714972qott39kdiuij83css1t1ni6i.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "810842817987-50ntook2pv58rav564qu0el7cr4hqju0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kondasri.projectinsta"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
