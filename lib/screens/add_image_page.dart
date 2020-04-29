@@ -11,20 +11,20 @@ import 'package:screenshot/screenshot.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 
 class AddImage extends StatelessWidget {
-  AddImage({@required this.backgroundImage, @required this.contestantNumber, @required this.instaID});
-  Image backgroundImage;
+  AddImage({@required this.backgroundImageURL, @required this.contestantNumber, @required this.instaID});
+  String backgroundImageURL;
   String contestantNumber;
   String instaID;
 
   @override
   Widget build(BuildContext context) {
-    return F_AddImage(backgroundImage:backgroundImage, contestantNumber: contestantNumber, instaID: instaID,);
+    return F_AddImage(backgroundImageURL:backgroundImageURL, contestantNumber: contestantNumber, instaID: instaID,);
   }
 }
 
 class F_AddImage extends StatefulWidget {
-  F_AddImage({@required this.backgroundImage, @required this.contestantNumber, @required this.instaID});
-  Image backgroundImage;
+  F_AddImage({@required this.backgroundImageURL, @required this.contestantNumber, @required this.instaID});
+  String backgroundImageURL;
   String contestantNumber;
   String instaID;
 
@@ -126,7 +126,7 @@ class _F_AddImageState extends State<F_AddImage> {
                     Container(
                       height: MediaQuery.of(context).size.width,
                       width: MediaQuery.of(context).size.width,
-                      child: widget.backgroundImage
+                      child: Image.network(widget.backgroundImageURL),
 //                      Image.network(getBackgroundImage(contestData.backgroundURL)),
                     ),
                     Positioned(
