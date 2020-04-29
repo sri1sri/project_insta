@@ -161,7 +161,7 @@ class _F_AddDetailsState extends State<F_AddDetails> {
                   textInputAction: TextInputAction.done,
                   autocorrect: true,
                   obscureText: false,
-                  keyboardType: TextInputType.number,
+//                  keyboardType: TextInputType.number,
                   keyboardAppearance: Brightness.dark,
                   focusNode: _instaIDFocusNode,
                   onEditingComplete: _submit,
