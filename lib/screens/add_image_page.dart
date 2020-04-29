@@ -8,7 +8,7 @@ import 'package:projectinsta/commonFiles/custom_offline_widget.dart';
 import 'package:projectinsta/commonFiles/transperent_loading.dart';
 import 'package:projectinsta/firebase/admobs.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:firebase_admob/firebase_admob.dart';
+//import 'package:firebase_admob/firebase_admob.dart';
 
 class AddImage extends StatelessWidget {
   AddImage({@required this.backgroundImageURL, @required this.contestantNumber, @required this.instaID});
@@ -269,7 +269,7 @@ class _F_AddImageState extends State<F_AddImage> {
                     }).catchError((onError) {
                       print(onError);
                     });
-                    Ads.showRewardedVideoAd();
+                   // Ads.showRewardedVideoAd();
                   },
 //                tooltip: 'Increment',
                   child: Container(

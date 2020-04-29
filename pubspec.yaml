@@ -37,7 +37,7 @@ dependencies:
   image_gallery_saver: ^1.2.2
   screenshot: ^0.1.1
   permission_handler: ^5.0.0+hotfix.3
-  firebase_admob: 0.9.3+2
+#  firebase_admob: 0.9.3+2
 
 
 dev_dependencies:

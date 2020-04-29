@@ -41,6 +41,13 @@ class _F_AddDetailsState extends State<F_AddDetails> {
     var document = await databaseReference.collection('contests').document(_contestCode).snapshots();
     document.listen((data) async{
 
+
+      if(data == null){
+        setState(() {
+          contetIDCheck = false;
+        });
+      }
+
       if(data.data.length != 0) {
         final ref = FirebaseStorage.instance.ref().child('backgrounds/${data['background_image_title']}');
         var url = await ref.getDownloadURL();
