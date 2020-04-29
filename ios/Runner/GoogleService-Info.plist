@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>810842817987-50ntook2pv58rav564qu0el7cr4hqju0.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.810842817987-50ntook2pv58rav564qu0el7cr4hqju0</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDvrezFoyadZVCZjZ3rUP_rbw3Au3gWcvg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>810842817987</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.kondasri.projectinsta</string>
+	<key>PROJECT_ID</key>
+	<string>projectinsta-d1a6e</string>
+	<key>STORAGE_BUCKET</key>
+	<string>projectinsta-d1a6e.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:810842817987:ios:21a9facbe236f13f6ca976</string>
+	<key>DATABASE_URL</key>
+	<string>https://projectinsta-d1a6e.firebaseio.com</string>
+</dict>
+</plist>
