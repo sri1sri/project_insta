@@ -86,6 +86,7 @@ class _F_AddImageState extends State<F_AddImage> {
     return new Scaffold(
         appBar:new AppBar(
           title: new Text("Circular progressbar demo"),
+          backgroundColor: Colors.blue,
         ),
         body: _progressBarActive == true?const CircularProgressIndicator():new Container());
   }
@@ -95,8 +96,6 @@ class _F_AddImageState extends State<F_AddImage> {
 
     super.initState();
   }
-
-
 
 
   @override
@@ -120,7 +119,8 @@ class _F_AddImageState extends State<F_AddImage> {
     return  TransparentLoading(
       loading: isLoading,
       child: SingleChildScrollView(
-        child: Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 90),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -139,7 +139,7 @@ class _F_AddImageState extends State<F_AddImage> {
                       right: 0,
                       left: 0,
                       child: Padding(
-                        padding: EdgeInsets.all(10),
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                         child: Container(
                             color: Colors.transparent,
                             height: 290,
@@ -159,18 +159,23 @@ class _F_AddImageState extends State<F_AddImage> {
                             width: 30,
                           ),
                           SizedBox(width: 3,),
-                          Text("Insta @${widget.instaID}",
-                            style: TextStyle(
-                                fontFamily: 'BalooBhaina2',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17
-                            ),),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade200,
+                            ),
+                            child: Text("@${widget.instaID}",
+                              style: TextStyle(
+                                  fontFamily: 'BalooBhaina2',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 17
+                              ),),
+                          ),
                         ],
                       ),
                     ),
 
                     Positioned(
-                      top: 20,
+                      top: 30,
                       right: 10,
                       child: Row(
                         children: <Widget>[
@@ -179,18 +184,17 @@ class _F_AddImageState extends State<F_AddImage> {
                             width: 30,
                           ),
                           SizedBox(width: 3,),
-                          Text('Contestant no :',
-                            style: TextStyle(
-                                fontFamily: 'BalooBhaina2',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17
-                            ),),
-                          Text('Contestant no :${widget.contestantNumber}',
-                            style: TextStyle(
-                                fontFamily: 'BalooBhaina2',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12
-                            ),),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade200,
+                            ),
+                            child: Text('Contestant no :${widget.contestantNumber}',
+                              style: TextStyle(
+                                  fontFamily: 'BalooBhaina2',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12
+                              ),),
+                          ),
                         ],
                       ),
                     )
