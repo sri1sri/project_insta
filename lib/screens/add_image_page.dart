@@ -4,20 +4,23 @@ import 'package:projectinsta/commonFiles/custom_offline_widget.dart';
 import 'package:projectinsta/commonFiles/transperent_loading.dart';
 
 class AddImage extends StatelessWidget {
-  AddImage({@required this.backgroundImage, @required this.contestantNumber});
+  AddImage({@required this.backgroundImage, @required this.contestantNumber, @required this.instaID});
   Image backgroundImage;
   String contestantNumber;
+  String instaID;
 
   @override
   Widget build(BuildContext context) {
-    return F_AddImage(backgroundImage:backgroundImage, contestantNumber: contestantNumber,);
+    return F_AddImage(backgroundImage:backgroundImage, contestantNumber: contestantNumber, instaID: instaID,);
   }
 }
 
 class F_AddImage extends StatefulWidget {
-  F_AddImage({@required this.backgroundImage, @required this.contestantNumber});
+  F_AddImage({@required this.backgroundImage, @required this.contestantNumber, @required this.instaID});
   Image backgroundImage;
   String contestantNumber;
+  String instaID;
+
 
   @override
   _F_AddImageState createState() => _F_AddImageState();
