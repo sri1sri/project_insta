@@ -168,6 +168,7 @@ class _F_AddDetailsState extends State<F_AddDetails> {
                     child: Text('Enter instagram ID',  style: mediumTextStyle,),
                   ),
                   TextFormField(
+                    maxLength: 30,
                     onChanged: (value) => _instaID = value,
                     textInputAction: TextInputAction.done,
                     autocorrect: true,

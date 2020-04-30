@@ -9,6 +9,7 @@ import 'package:projectinsta/commonFiles/platform_alert/platform_alert_dialog.da
 import 'package:projectinsta/commonFiles/transperent_loading.dart';
 import 'package:projectinsta/firebase/admobs.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class AddImage extends StatelessWidget {
   AddImage({@required this.backgroundImage, @required this.contestantNumber, @required this.instaID, @required this.contestCode});
@@ -169,52 +170,68 @@ class _F_AddImageState extends State<F_AddImage> {
 
                     Positioned(
                       top: 10,
-                      right: 10,
-                      child: Row(
-                        children: <Widget>[
-//                          Image(image: AssetImage('images/instagramlogo.png'),
-//                            height: 30,
-//                            width: 30,
-//                          ),
-                          SizedBox(width: 3,),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade200,
-                            ),
-                            child: Text("IG @${widget.instaID}",
-                              style: TextStyle(
-                                  fontFamily: 'BalooBhaina2',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17
-                              ),),
+                      right: 5,
+                      child: Container(
+                          height: 50,
+                          width: 160,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
                           ),
-                        ],
+                          child: Stack(
+                            children: <Widget>[
+                              Positioned(
+                                top: 0,
+//                                right: 0,
+                                child:
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(3,3,0,0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Row(
+                                        children: <Widget>[
+                                          Image(image: AssetImage('images/instagramlogo.png'),
+                                            height: 20,
+                                            width: 20,
+                                          ),
+                                          SizedBox(width: 3,),
+                                          Container(
+                                            width: 130,
+                                            child: AutoSizeText(
+                                              "@${widget.instaID}",
+                                              maxLines: 1,
+                                              minFontSize: 7,
+                                              maxFontSize: 15,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontFamily: 'BalooBhaina2',
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 3,),
+                                      Row(
+                                        children: <Widget>[
+                                          SizedBox(width: 3,),
+                                          Text('Contestant no :${widget.contestantNumber}',
+                                            style: TextStyle(
+                                                fontFamily: 'BalooBhaina2',
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15
+                                            ),),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          )
+
                       ),
                     ),
-                    Positioned(
-                      top: 30,
-                      right: 10,
-                      child: Row(
-                        children: <Widget>[
-//                          Image(image: AssetImage('images/instagramlogo.png'),
-//                            height: 30,
-//                            width: 30,
-//                          ),
-                          SizedBox(width: 3,),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade200,
-                            ),
-                            child: Text('Contestant no :${widget.contestantNumber}',
-                              style: TextStyle(
-                                  fontFamily: 'BalooBhaina2',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12
-                              ),),
-                          ),
-                        ],
-                      ),
-                    )
                   ],
                 ),
               ),
