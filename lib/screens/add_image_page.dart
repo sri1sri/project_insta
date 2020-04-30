@@ -92,14 +92,16 @@ class _F_AddImageState extends State<F_AddImage> {
   }
 
 
-  void initState() {
 
+
+  void initState() {
     super.initState();
   }
 
 
   @override
   Widget build(BuildContext context) {
+
     return CustomOfflineWidget(
       onlineChild: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -141,7 +143,7 @@ class _F_AddImageState extends State<F_AddImage> {
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                         child: Container(
-                            color: Colors.transparent,
+                            color: Colors.green,
                             height: 290,
                             width: MediaQuery.of(context).size.width,
 //                      width: 200,
@@ -149,6 +151,8 @@ class _F_AddImageState extends State<F_AddImage> {
                         ),
                       ),
                     ),
+
+
                     Positioned(
                       top: 10,
                       right: 10,
@@ -163,17 +167,16 @@ class _F_AddImageState extends State<F_AddImage> {
                             decoration: BoxDecoration(
                               color: Colors.grey.shade200,
                             ),
-                            child: Text("@${widget.instaID}",
+                            child: Text("IG @${widget.instaID}",
                               style: TextStyle(
                                   fontFamily: 'BalooBhaina2',
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 17
+                                  fontSize: 16
                               ),),
                           ),
                         ],
                       ),
                     ),
-
                     Positioned(
                       top: 30,
                       right: 10,
@@ -198,6 +201,9 @@ class _F_AddImageState extends State<F_AddImage> {
                         ],
                       ),
                     )
+
+
+
 
                   ],
                 ),

@@ -38,8 +38,8 @@ class _F_AddDetailsState extends State<F_AddDetails> {
   Future<void> getData(String contestCode) async{
 
     if (_validateAndSaveForm()) {
-      var document = await Firestore.instance.collection('contests').document(_contestCode).snapshots();
-      await document.listen((data) async{
+      var document = Firestore.instance.collection('contests').document(_contestCode);
+      document.get().then((data) async{
         if(data == null){
           setState(() {
             contetIDCheck = false;
@@ -54,19 +54,13 @@ class _F_AddDetailsState extends State<F_AddDetails> {
             backgroundImageURL = url;
             contestantCount = data['contestant_count'] + 1;
           });
+
+          updateContestantNumber();
           GoToPage(context, AddImage(backgroundImageURL: backgroundImageURL, contestantNumber: contestantCount.toString(), instaID: _instaID,));
 
         }
       });
     }
-  }
-
-  Future<void> updateContestantNumber() async{
-    await Firestore.instance.collection("contests")
-        .document(_contestCode)
-        .updateData({
-      'contestant_count': contestantCount
-    });
   }
 
   bool _validateAndSaveForm() {
@@ -91,6 +85,14 @@ class _F_AddDetailsState extends State<F_AddDetails> {
     });
   }
 
+  void updateContestantNumber(){
+    print('called');
+    Firestore.instance.collection("contests")
+        .document(_contestCode)
+        .updateData({
+      'contestant_count': contestantCount,
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
