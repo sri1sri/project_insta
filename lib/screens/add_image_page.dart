@@ -1,30 +1,31 @@
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:projectinsta/commonFiles/app_fonts.dart';
 import 'package:projectinsta/commonFiles/custom_offline_widget.dart';
+import 'package:projectinsta/commonFiles/platform_alert/platform_alert_dialog.dart';
 import 'package:projectinsta/commonFiles/transperent_loading.dart';
+import 'package:projectinsta/firebase/admobs.dart';
 import 'package:screenshot/screenshot.dart';
 
 class AddImage extends StatelessWidget {
-  AddImage({@required this.backgroundImageURL, @required this.contestantNumber, @required this.instaID, @required this.contestCode});
-  String backgroundImageURL;
+  AddImage({@required this.backgroundImage, @required this.contestantNumber, @required this.instaID, @required this.contestCode});
+  Image backgroundImage;
   String contestantNumber;
   String instaID;
   String contestCode;
 
   @override
   Widget build(BuildContext context) {
-    return F_AddImage(backgroundImageURL:backgroundImageURL, contestantNumber: contestantNumber, instaID: instaID, contestCode:contestCode);
+    return F_AddImage(backgroundImage:backgroundImage, contestantNumber: contestantNumber, instaID: instaID, contestCode:contestCode);
   }
 }
 
 class F_AddImage extends StatefulWidget {
-  F_AddImage({@required this.backgroundImageURL, @required this.contestantNumber, @required this.instaID, @required this.contestCode});
-  String backgroundImageURL;
+  F_AddImage({@required this.backgroundImage, @required this.contestantNumber, @required this.instaID, @required this.contestCode});
+  Image backgroundImage;
   String contestantNumber;
   String instaID;
   String contestCode;
@@ -40,11 +41,7 @@ class _F_AddImageState extends State<F_AddImage> {
   Future<File> ImageFile;
   String logotext = '';
   File _imageFile;
-  double watermarkHeight = 50;
-  double watermarkWidth = 50;
   ScreenshotController screenshotController = ScreenshotController();
-  bool _progressBarActive = true;
-//  Ads adclass = Ads();
 
 
 
@@ -62,18 +59,10 @@ class _F_AddImageState extends State<F_AddImage> {
             snapshot.data != null) {
           return Image.file(
             snapshot.data,
-//            width: 300,
-//            height: 300,
-//            fit: BoxFit.fill,
           );
-        } else if (snapshot.error != null) {
+        }else {
           return const Text(
-            'Error Picking Image',
-            textAlign: TextAlign.center,
-          );
-        } else {
-          return const Text(
-            'No Image selected',
+            ' ',
             textAlign: TextAlign.center,
           );
         }
@@ -82,17 +71,40 @@ class _F_AddImageState extends State<F_AddImage> {
   }
 
 
-  Widget circularProgressBar(BuildContext context) {
-    return new Scaffold(
-        appBar:new AppBar(
-          title: new Text("Circular progressbar demo"),
-          backgroundColor: Colors.blue,
-        ),
-        body: _progressBarActive == true?const CircularProgressIndicator():new Container());
+  void _submit() async{
+    if(ImageFile != null){
+
+//      var status = await Permission.storage.status;
+//      if (status.isUndetermined) {
+//        Permission.storage.request();
+//      }
+      Ads.showRewardedVideoAd();
+      setState(() {
+        isLoading = true;
+      });
+
+      screenshotController
+          .capture(delay: Duration(milliseconds: 10),pixelRatio: 5)
+          .then((File image) async {
+        setState(() {
+          _imageFile = image;
+        });
+        await ImageGallerySaver.saveImage(image.readAsBytesSync());
+        setState(() {
+          isLoading = false;
+        });
+
+        await PlatformAlertDialog(title: 'Success', content: "Your image has been successfully saved to galary.", defaultActionText: 'ok').show(context);
+
+        Navigator.of(context).pop(true);
+
+      }).catchError((onError) {
+        print(onError);
+      });
+    }else{
+      PlatformAlertDialog(title: 'Oops', content: "Please select the image.", defaultActionText: 'ok').show(context);
+    }
   }
-
-
-
 
   void initState() {
     super.initState();
@@ -107,7 +119,9 @@ class _F_AddImageState extends State<F_AddImage> {
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         child: Scaffold(
           appBar: AppBar(
-            title: Text('Template Creation'),
+            title: Text('Add Image', style: mediumTextStyle
+              , ),
+            backgroundColor: Colors.black45,
           ),
           body: _buildContent(context),
         ),
@@ -122,7 +136,7 @@ class _F_AddImageState extends State<F_AddImage> {
       loading: isLoading,
       child: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 90),
+          padding: EdgeInsets.symmetric(vertical: 30),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -133,7 +147,7 @@ class _F_AddImageState extends State<F_AddImage> {
                     Container(
                       height: MediaQuery.of(context).size.width,
                       width: MediaQuery.of(context).size.width,
-                      child: Image.network(widget.backgroundImageURL),
+                      child: widget.backgroundImage,
 //                      Image.network(getBackgroundImage(contestData.backgroundURL)),
                     ),
                     Positioned(
@@ -143,8 +157,8 @@ class _F_AddImageState extends State<F_AddImage> {
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                         child: Container(
-                            color: Colors.green,
-                            height: 290,
+                            color: Colors.transparent,
+                            height: 270,
                             width: MediaQuery.of(context).size.width,
 //                      width: 200,
                             child: showImage()
@@ -158,10 +172,10 @@ class _F_AddImageState extends State<F_AddImage> {
                       right: 10,
                       child: Row(
                         children: <Widget>[
-                          Image(image: AssetImage('images/instagramlogo.png'),
-                            height: 30,
-                            width: 30,
-                          ),
+//                          Image(image: AssetImage('images/instagramlogo.png'),
+//                            height: 30,
+//                            width: 30,
+//                          ),
                           SizedBox(width: 3,),
                           Container(
                             decoration: BoxDecoration(
@@ -171,7 +185,7 @@ class _F_AddImageState extends State<F_AddImage> {
                               style: TextStyle(
                                   fontFamily: 'BalooBhaina2',
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 16
+                                  fontSize: 17
                               ),),
                           ),
                         ],
@@ -182,10 +196,10 @@ class _F_AddImageState extends State<F_AddImage> {
                       right: 10,
                       child: Row(
                         children: <Widget>[
-                          Image(image: AssetImage('images/instagramlogo.png'),
-                            height: 30,
-                            width: 30,
-                          ),
+//                          Image(image: AssetImage('images/instagramlogo.png'),
+//                            height: 30,
+//                            width: 30,
+//                          ),
                           SizedBox(width: 3,),
                           Container(
                             decoration: BoxDecoration(
@@ -201,10 +215,6 @@ class _F_AddImageState extends State<F_AddImage> {
                         ],
                       ),
                     )
-
-
-
-
                   ],
                 ),
               ),
@@ -216,11 +226,11 @@ class _F_AddImageState extends State<F_AddImage> {
                     width: 160,
                     decoration: BoxDecoration(
                       borderRadius: new BorderRadius.all(Radius.circular(10)),
-                      color: Colors.blue,
+                      color: Colors.black87,
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: Center(child: Text('Upload Image',
+                      child: Center(child: Text('Select Image',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 22,
@@ -230,12 +240,10 @@ class _F_AddImageState extends State<F_AddImage> {
                   onPressed: () {
                     setState(() {
                       isLoading = true;
-//                      logotext = 'Logo';
                     });
                     pickImageFromGallery(ImageSource.gallery);
                     setState(() {
                       isLoading = false;
-//                      logotext = 'Logo';
                     });
                   },
                 ),
@@ -244,55 +252,23 @@ class _F_AddImageState extends State<F_AddImage> {
               Container(
                 child: FlatButton(
                   onPressed: () async{
-                    var status = await Permission.storage.status;
-                    if (status.isUndetermined) {
-                      Permission.storage.request();
-                    }
-//                      setState(() async{
-//
-//                      });
-                    // _imageFile = null;
-                    setState(() {
-                      isLoading = true;
-//                      logotext = 'Logo';
-                    });
-                    screenshotController
-                        .capture(delay: Duration(milliseconds: 10),pixelRatio: 5)
-                        .then((File image) async {
-                      print("Capture Done");
-                      setState(() {
-                        _imageFile = image;
-                        print(_imageFile);
-                      });
-                      await ImageGallerySaver.saveImage(image.readAsBytesSync());
-
-                      setState(() {
-                        isLoading = false;
-//                      logotext = 'Logo';
-                      });
-//                    print(result);
-                      print("File Saved to Gallery");
-                      circularProgressBar(context);
-
-                    }).catchError((onError) {
-                      print(onError);
-                    });
-                   // Ads.showRewardedVideoAd();
+                    _submit();
                   },
-//                tooltip: 'Increment',
                   child: Container(
-                    width: 160,
+                    width: 250,
                     decoration: BoxDecoration(
                       borderRadius: new BorderRadius.all(Radius.circular(10)),
-                      color: Colors.blue,
+                      color: Colors.black87,
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: Center(child: Text('Save Image',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
-                        ),)),
+                      child: Center(
+                        child: Text('Save Image to gallery',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),),
+                      )
                     ),
                   ),
                 ),
