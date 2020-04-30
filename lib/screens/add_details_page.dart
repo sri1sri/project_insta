@@ -158,6 +158,7 @@ class _F_AddDetailsState extends State<F_AddDetails> {
                 ),
                 TextFormField(
                   onChanged: (value) => _instaID = value,
+                  maxLength: 30,
                   textInputAction: TextInputAction.done,
                   autocorrect: true,
                   obscureText: false,
