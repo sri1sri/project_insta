@@ -115,112 +115,114 @@ class _F_AddDetailsState extends State<F_AddDetails> {
   Widget _buildContent(BuildContext context) {
     return  TransparentLoading(
         loading: isLoading,
-        child:  Form(
-          key: _formKey,
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text('Enter Contest code', style: mediumTextStyle,),
-                ),
-                TextFormField(
-                  onChanged: (value) => _contestCode = value,
-                  textInputAction: TextInputAction.next,
-                  autocorrect: true,
-                  obscureText: false,
-                  keyboardType: TextInputType.number,
-                  keyboardAppearance: Brightness.dark,
-                  focusNode: _contestCodeFocusNode,
-                  onFieldSubmitted: (value) => value == ''
-                      ? null
-                      : FocusScope.of(context)
-                      .requestFocus(_instaIDFocusNode),
-                  autofocus: true,
-                  cursorColor: Colors.black,
-                  style: mediumTextStyle,
-              decoration: new InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 5.0),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey, width: 5.0),
-                ),
-                hintText: 'Contestant Number',
-              ),
-                  validator: (value) {
-                    print(value);
-                    if (value.isEmpty) {
-                      return 'Please enter contest code';
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text('Enter instagram ID',  style: mediumTextStyle,),
-                ),
-                TextFormField(
-                  onChanged: (value) => _instaID = value,
-                  textInputAction: TextInputAction.done,
-                  autocorrect: true,
-                  obscureText: false,
-                  keyboardType: TextInputType.text,
-                  keyboardAppearance: Brightness.dark,
-                  focusNode: _instaIDFocusNode,
-                  onEditingComplete: _submit,
-                  autofocus: true,
-                  cursorColor: Colors.black,
-                  style: mediumTextStyle,
-                  decoration: new InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                      BorderSide(color: Colors.black, width: 5.0),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey, width: 5.0),
-                    ),
-                    hintText: 'Instagram ID',
+        child:  SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('Enter Contest code', style: mediumTextStyle,),
                   ),
-                  validator: (value) {
-                    print(value);
-                    if (value.isEmpty) {
-                      return 'Please enter instagram ID';
-                    }
-                    return null;
-                  },
+                  TextFormField(
+                    onChanged: (value) => _contestCode = value,
+                    textInputAction: TextInputAction.next,
+                    autocorrect: true,
+                    obscureText: false,
+                    keyboardType: TextInputType.number,
+                    keyboardAppearance: Brightness.dark,
+                    focusNode: _contestCodeFocusNode,
+                    onFieldSubmitted: (value) => value == ''
+                        ? null
+                        : FocusScope.of(context)
+                        .requestFocus(_instaIDFocusNode),
+                    autofocus: true,
+                    cursorColor: Colors.black,
+                    style: mediumTextStyle,
+                decoration: new InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black, width: 5.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey, width: 5.0),
+                  ),
+                  hintText: 'Contestant Number',
                 ),
-                SizedBox(
-                  height: 30,
-                ),
-
-                GestureDetector(
-                    onTap: (){
-                      _submit();
+                    validator: (value) {
+                      print(value);
+                      if (value.isEmpty) {
+                        return 'Please enter contest code';
+                      }
+                      return null;
                     },
-                    child: Container(
-                      height: 50,
-                        width: 120,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(5)),
-                          color: Colors.black87,
-                        ),
-                        child: Center(child: Text('Next',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'BalooBhaina2',
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),)))),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('Enter instagram ID',  style: mediumTextStyle,),
+                  ),
+                  TextFormField(
+                    onChanged: (value) => _instaID = value,
+                    textInputAction: TextInputAction.done,
+                    autocorrect: true,
+                    obscureText: false,
+                    keyboardType: TextInputType.text,
+                    keyboardAppearance: Brightness.dark,
+                    focusNode: _instaIDFocusNode,
+                    onEditingComplete: _submit,
+                    autofocus: true,
+                    cursorColor: Colors.black,
+                    style: mediumTextStyle,
+                    decoration: new InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                        BorderSide(color: Colors.black, width: 5.0),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey, width: 5.0),
+                      ),
+                      hintText: 'Instagram ID',
+                    ),
+                    validator: (value) {
+                      print(value);
+                      if (value.isEmpty) {
+                        return 'Please enter instagram ID';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
 
-                contetIDCheck == true ? Container(height: 0, width: 0,):Text('Please enter correct contest ID', style: mediumTextStyle,)
-              ],
+                  GestureDetector(
+                      onTap: (){
+                        _submit();
+                      },
+                      child: Container(
+                        height: 50,
+                          width: 120,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            color: Colors.black87,
+                          ),
+                          child: Center(child: Text('Next',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'BalooBhaina2',
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),)))),
+
+                  contetIDCheck == true ? Container(height: 0, width: 0,):Text('Please enter correct contest ID', style: mediumTextStyle,)
+                ],
+              ),
             ),
           ),
         ),
